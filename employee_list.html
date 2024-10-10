@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet">
     <style>
-        /* ensuring modal overlay covers viewport */
+        /* To ensure the modal overlay covers the entire viewport */
         .modal {
             display: none;
             position: fixed;
@@ -137,7 +137,7 @@
             }
         };
 
-        // Open Modal
+        // Function to open modal
         function openModal(employeeId) {
             const employee = employees[employeeId];
             document.getElementById('modalTitle').innerText = employee.name;
@@ -148,7 +148,7 @@
             document.getElementById('employeeModal').style.display = 'flex';
         }
 
-        // Close Modal
+        // Function to close modal
         function closeModal() {
             document.getElementById('employeeModal').style.display = 'none';
         }
