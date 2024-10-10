@@ -6,6 +6,19 @@
     <title>Employee List - Sinks R Us</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet">
+    <style>
+        /* To ensure the modal overlay covers the entire viewport */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 50;
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <div class="flex items-center justify-center min-h-screen bg-cover bg-center" style="background-image: url('image.jpg');">
@@ -28,7 +41,7 @@
                         <td class="border px-4 py-2">IT</td>
                         <td class="border px-4 py-2">ivan.petrov@sinksrus.com</td>
                         <td class="border px-4 py-2">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
+                            <button onclick="openModal('ivan')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
                         </td>
                     </tr>
                     <tr>
@@ -37,7 +50,7 @@
                         <td class="border px-4 py-2">Marketing</td>
                         <td class="border px-4 py-2">pedro_los_banos@sinksrus.com</td>
                         <td class="border px-4 py-2">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
+                            <button onclick="openModal('pedro')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
                         </td>
                     </tr>
                     <tr>
@@ -46,7 +59,7 @@
                         <td class="border px-4 py-2">HR</td>
                         <td class="border px-4 py-2">ana.gomez@sinksrus.com</td>
                         <td class="border px-4 py-2">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
+                            <button onclick="openModal('ana')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
                         </td>
                     </tr>
                     <tr>
@@ -55,7 +68,7 @@
                         <td class="border px-4 py-2">Sales</td>
                         <td class="border px-4 py-2">john.wu@sinksrus.com</td>
                         <td class="border px-4 py-2">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
+                            <button onclick="openModal('john')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
                         </td>
                     </tr>
                     <tr>
@@ -64,12 +77,81 @@
                         <td class="border px-4 py-2">Admin</td>
                         <td class="border px-4 py-2">emma@sinksrus.com</td>
                         <td class="border px-4 py-2">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
+                            <button onclick="openModal('emma')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Info</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+    <!-- Modal Structure -->
+    <div id="employeeModal" class="modal fixed inset-0 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-5 w-full max-w-lg">
+            <h2 class="text-xl font-bold mb-4" id="modalTitle"></h2>
+            <p class="mb-2"><strong>Contact No:</strong> <span id="modalContactNo"></span></p>
+            <p class="mb-2"><strong>Address:</strong> <span id="modalAddress"></span></p>
+            <p class="mb-2"><strong>Sex:</strong> <span id="modalSex"></span></p>
+            <p class="mb-2"><strong>Marital Status:</strong> <span id="modalMaritalStatus"></span></p>
+            <button onclick="closeModal()" class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Employee data
+        const employees = {
+            ivan: {
+                name: "Ivan Petrov",
+                contactNo: "555-6789",
+                address: "12 Red Square, Moscow",
+                sex: "Male",
+                maritalStatus: "Single"
+            },
+            pedro: {
+                name: "Pedro Los Baños",
+                contactNo: "N/A",
+                address: "123 Mabini St",
+                sex: "Male",
+                maritalStatus: "Married"
+            },
+            ana: {
+                name: "Ana Gómez",
+                contactNo: "555-1526",
+                address: "N/A",
+                sex: "Female",
+                maritalStatus: "Divorced"
+            },
+            john: {
+                name: "John Wu",
+                contactNo: "555-6925",
+                address: "456 Rizal St",
+                sex: "Male",
+                maritalStatus: "Single"
+            },
+            emma: {
+                name: "Emma Wilson",
+                contactNo: "555-1111",
+                address: "N/A",
+                sex: "Female",
+                maritalStatus: "Married"
+            }
+        };
+
+        // Function to open modal
+        function openModal(employeeId) {
+            const employee = employees[employeeId];
+            document.getElementById('modalTitle').innerText = employee.name;
+            document.getElementById('modalContactNo').innerText = employee.contactNo;
+            document.getElementById('modalAddress').innerText = employee.address;
+            document.getElementById('modalSex').innerText = employee.sex;
+            document.getElementById('modalMaritalStatus').innerText = employee.maritalStatus;
+            document.getElementById('employeeModal').style.display = 'flex';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            document.getElementById('employeeModal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
